@@ -1,0 +1,27 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>sirh-gestion-personnel</groupId>
+  <artifactId>sirh-gestion-personnel</artifactId>
+  <packaging>war</packaging>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>sirh-gestion-personnel Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+
+  <build>
+    <finalName>sirh-gestion-personnel</finalName>
+
+	<sourceDirectory>src/main/java</sourceDirectory>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.5.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+					<target />
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
