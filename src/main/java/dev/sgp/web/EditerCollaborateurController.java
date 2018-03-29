@@ -1,47 +1,39 @@
 package dev.sgp.web;
 
 import java.io.IOException;
+import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import dev.sgp.entite.Collaborateur;
+import dev.sgp.entite.Departement;
+import dev.sgp.service.CollaborateurService;
+import dev.sgp.service.DepartementService;
+import dev.sgp.util.Constantes;
 
 /**
  * Servlet implementation class EditerCollaborateurController
  */
 public class EditerCollaborateurController extends HttpServlet {
+	
+
+	private CollaborateurService collabService = Constantes.COLLAB_SERVICE;
+	private List<Departement> departements = new DepartementService().listerDepartements(); 
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-		String matricule = req.getParameter("matricule");
-		String titre = req.getParameter("titre");
-		String nom = req.getParameter("nom");
-		String prenom = req.getParameter("prenom");
-		String errorMsg = "";
-		if (matricule == null || titre == null || prenom == null || nom == null) {
-			if(matricule == null){
-				errorMsg = "matricule";
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		Collaborateur collabEditer = null;
+		List<Collaborateur> listeCollaborateurs = collabService.listerCollaborateurs();
+		for (Collaborateur collaborateur : listeCollaborateurs) {
+			if (collaborateur.getMatricule() == request.getAttribute("collaEdit")) {
+				collabEditer = collaborateur;
 			}
-			if(titre == null){
-				errorMsg += ", titre";
-			}
-			if( prenom == null){
-				errorMsg += ", prenom";
-				
-			}
-			if(nom == null){
-				errorMsg += ", nom";
-			}
-			errorMsg += " non présent";
-			resp.sendError(400, errorMsg);
 		}
-		else{		
-			resp.setStatus(201);
-			resp.setContentType("text/html");
-			// code HTML ecrit dans le corps de la reponse
-			resp.getWriter().write("<h1>Edition de collaborateur</h1>"
-			+"<p>matricule="+matricule+",titre="+titre+",nom="+nom+",prenom="+prenom+"</p>");
-		}
+		request.setAttribute("colladEditer", collabEditer);
+		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/collab/editerCollaborateur.jsp");
+		dispatcher.forward(request, response);
 	}
 }
