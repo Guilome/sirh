@@ -94,7 +94,7 @@
 			          <label>Adresse : </label><label> <%=collaborateur.getAdresse()%></label><br/>
 			          <label>Email : </label><label> <%=collaborateur.getMailPro()%></label><br/>
 			          <label>Securité Sociale : </label><label> <%=collaborateur.getNumeroSecuriteSociale()%></label><br/>
-			          <a href="editer?collaEdit=<%=collaborateur.getMatricule() %>"><button type="button" class="btn btn-primary">Éditer</button></a>
+			          <a href="editer?matricule=<%= collaborateur.getMatricule()%>" class="btn btn-primary">Éditer</a>
 			        </div>
 			      </div>
 			<%

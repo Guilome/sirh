@@ -17,23 +17,26 @@ import dev.sgp.util.Constantes;
  * Servlet implementation class EditerCollaborateurController
  */
 public class EditerCollaborateurController extends HttpServlet {
-	
 
 	private CollaborateurService collabService = Constantes.COLLAB_SERVICE;
-	private List<Departement> departements = new DepartementService().listerDepartements(); 
+	private List<Departement> departements = new DepartementService().listerDepartements();
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		Collaborateur collabEditer = null;
 		List<Collaborateur> listeCollaborateurs = collabService.listerCollaborateurs();
+		Collaborateur collabEditer = null;
+
+		String matricule = request.getParameter("matricule");
 		for (Collaborateur collaborateur : listeCollaborateurs) {
-			if (collaborateur.getMatricule() == request.getAttribute("collaEdit")) {
+			if (collaborateur.getMatricule().equals(matricule)) {
 				collabEditer = collaborateur;
 			}
 		}
+
+		request.setAttribute("listerDepartement", departements);
 		request.setAttribute("colladEditer", collabEditer);
-		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/collab/editerCollaborateur.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/collab/editerCollaborateur.jsp");
 		dispatcher.forward(request, response);
 	}
 }

@@ -1,5 +1,5 @@
 <%@page language="java" pageEncoding="UTF-8"%>
-<%@ page import = "dev.sgp.entite.Collaborateur,dev.sgp.service.CollaborateurService,java.util.List,dev.sgp.entite.Departement"%>
+<%@ page import = "dev.sgp.entite.Collaborateur,dev.sgp.service.CollaborateurService,java.util.List,dev.sgp.entite.Departement,java.time.LocalDate"%>
 <!DOCTYPE html>
 <html>
   <head>
@@ -31,7 +31,7 @@
     </nav>
     <div class="container-fluid">
     <%
-        Collaborateur editCollab = (Collaborateur)request.getAttribute("colladEditer");
+		Collaborateur editCollab = (Collaborateur)request.getAttribute("colladEditer");
     %>
       <div class="row justify-content-end mt-2 p-2">
         <div class=".col-auto">
@@ -79,27 +79,27 @@
                     <div class="form-row">
                       <div class="form-group col-md-6">
                         <label for="inputNom">Nom</label>
-                        <input type="text" class="form-control" id="inputNom" placeholder="Nom">
+                        <input type="text" class="form-control" id="inputNom" placeholder="Nom" readonly="readonly" value="<%= editCollab.getNom()%>">
                       </div>
                       <div class="form-group col-md-6">
                         <label for="inputPrenom">Prénom</label>
-                        <input type="text" class="form-control" id="inputPrenom" placeholder="Prénom">
+                        <input type="text" class="form-control" id="inputPrenom" placeholder="Prénom" readonly="readonly" value="<%= editCollab.getPrenom()%>">
                       </div>
                     </div>
                     <!-- Date de Naissance -->
                     <div class="form-group">
                       <label for="inputNaissance">Date de naissance</label>
-                      <input type="date" class="form-control" id="inputNaissance" placeholder="">
+                      <input type="date" class="form-control" id="inputNaissance" placeholder="" readonly="readonly" value="<%= editCollab.getDateDeNaissance()%>">
                     </div>
                     <!-- Adresse -->
                     <div class="form-group">
                       <label for="inputAddresse">Adresse</label>
-                      <input type="text" class="form-control" id="inputAddresse" placeholder="">
+                      <input type="text" class="form-control" id="inputAddresse" placeholder="" readonly="readonly" value="<%= editCollab.getAdresse()%>">
                     </div>
                     <!-- Numéro de sécurité sociale -->
                     <div class="form-group">
                       <label for="inputNumSociale">Numéro de sécurité sociale</label>
-                      <input type="text" class="form-control" id="inputNumSociale">
+                      <input type="text" class="form-control" id="inputNumSociale" readonly="readonly" value="<%= editCollab.getNumeroSecuriteSociale()%>">
                     </div>
                     <!-- Téléphone -->
                     <div class="form-group">
@@ -112,17 +112,19 @@
               <div class="card">
                 <div class="card-header" id="headingTwo">
                   <h5 class="mb-0">
-
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#departement" aria-expanded="false" aria-controls="collapseThree">
+                      Poste
+                    </button>
                   </h5>
                 </div>
                 <div id="departement" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
                   <div class="card-body">
                     <!-- Département -->
-                    <label class="col-3" for="">Filtrer par département :</label>
-					<div class="col-5 input-group">
+                    <label class="col-5" for="">Filtrer par département :</label>
+					<div class="col-8 input-group">
   						<select class="custom-select" id="inputGroupSelect04">
   						<%
-            			List<Departement> departements = (List<Departement>)request.getAttribute("departements");
+            			List<Departement> departements = (List<Departement>)request.getAttribute("listerDepartement");
         				for(Departement departement : departements){
 						%>
     					<option value="<%=departement.getId()%>"><%=departement.getNom()%></option>
